@@ -49,7 +49,7 @@ class PedestrianDataset(VisionDataset):
             frame_range = range(0, int(self.num_frame * 0.9))
         else:
             frame_range = range(int(self.num_frame * 0.9), self.num_frame)
-
+        
         self.img_fpaths = self.base.get_image_fpaths(frame_range)
         self.world_gt = {}
         self.imgs_gt = {}
