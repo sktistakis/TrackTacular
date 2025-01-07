@@ -215,3 +215,6 @@ WorldTrack/.ipynb_checkpoints/
 # IDEs
 .idea
 .vscode
+
+# 
+lightning_logs/

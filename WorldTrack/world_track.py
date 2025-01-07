@@ -11,6 +11,7 @@ from utils import vox, basic, decode
 from evaluation.mod import modMetricsCalculator
 from evaluation.mot_bev import mot_metrics
 
+from lightning.pytorch.callbacks import ModelCheckpoint
 
 class WorldTrackModel(pl.LightningModule):
     def __init__(
@@ -353,6 +354,16 @@ if __name__ == '__main__':
             parser.link_arguments("model.resolution", "data.init_args.resolution")
             parser.link_arguments("model.bounds", "data.init_args.bounds")
             parser.link_arguments("trainer.accumulate_grad_batches", "data.init_args.accumulate_grad_batches")
+        
+        def before_instantiate_trainer(self):
+            checkpoint_callback = ModelCheckpoint(
+                dirpath="model_weights/",  # Directory where checkpoints will be saved
+                filename="epoch={epoch}-{val_loss:.2f}",  # File naming format
+                monitor="val_loss",  # Metric to monitor for saving checkpoints
+                mode="min",  # Save the checkpoint with the lowest validation loss
+                save_top_k=1,  # Save only the best checkpoint
+            )
+            self.trainer_defaults["callbacks"] = [checkpoint_callback]
 
 
     cli = MyLightningCLI(WorldTrackModel)

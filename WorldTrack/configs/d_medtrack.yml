@@ -1,0 +1,15 @@
+data:
+  class_path: datasets.PedMedTrackDataModule
+  init_args:
+    data_dir: "/media/sktistakis/T7/USZ_STUDY/USZ_Wildtrack"
+    recordings_train: ["recording_d_01_e_02", "recording_d_01_e_02"]
+    recordings_val: ["recording_d_01_e_02", "recording_d_01_e_02"]
+    recordings_test: ["recording_d_01_e_02", "recording_d_01_e_02"]
+model:
+  resolution: [120, 4, 360]  # Y,Z,X
+  bounds: [0, 1440, 0, 480, 0, 200]  # xmin,xmax,ymin,ymax,zmin,zmax
+  depth: [32, 250, 3250]
+  num_cameras: 6
+  use_temporal_cache: False
+trainer:
+  max_epochs: 30
